@@ -1,0 +1,141 @@
+type: object
+properties:
+  name:
+    $ref: "#/components/schemas/algorithmName"
+  env:
+    $ref: "#/components/schemas/algorithmEnv"
+  algorithmImage:
+    $ref: "#/components/schemas/algorithmImage"
+  cpu:
+    type: number
+    default: 0.1
+    minimum: 0
+    description: algorithm cpu
+  gpu:
+    type: number
+    minimum: 0
+    description: algorithm gpu
+  mem:
+    type: string
+    description: algorithm memory
+    format: algorithm-memory
+    default: 256Mi
+    example: 512Mi
+  reservedMemory:
+    type: string
+    description: Reserved memory for HKube's operations such as in-memory cache, higher value means faster data retrieval and less algorithm memory, lower value means slower data retrieval and more algorithm memory
+    format: memory
+    example: 512Mi
+  options:
+    type: object
+    properties:
+      debug:
+        type: boolean
+        description: debug algorithm locally
+        default: false
+      devMode:
+        type: boolean
+        description: runs algorithm with mounted sources to allow rapid development cycles
+      pending:
+        type: boolean
+        description: pending algorithm
+        default: false
+      opengl:
+        type: boolean
+        description: should algorithm support XGL context creation (mount X socket)
+    default: {}
+  version:
+    type: string
+    description: Hkube's auto increment semantic versioning
+    readOnly: true
+  mounts:
+    type: array
+    description: a list of volumes to mount into the algorithm
+    items:
+      $ref: "#/components/schemas/algorithmMount"
+    uniqueItems: true
+    example: []
+  gitRepository:
+    type: object
+    properties:
+      url:
+        type: string
+        description: a url for the git repository
+        format: url
+      commit:
+        type: object
+        description: commit details
+        properties:
+          id:
+            type: string
+            description: commit id
+          timestamp:
+            type: string
+            description: commit time
+          message:
+            type: string
+            description: commit message
+        required:
+          - id
+      branchName:
+        type: string
+        default: master
+        description: the branch name you wish to create a build from
+      tag:
+        type: string
+        description: a specific tag which will trigger the build
+      token:
+        type: string
+        description: a token which allows hkube's build system to access private repositories more information https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line
+      gitKind:
+        type: string
+        enum:
+          - github
+          - gitlab
+        default: github
+    required:
+      - url
+  entryPoint:
+    type: string
+  dependencyInstallCmd:
+    type: string
+    description: |
+      Command to run to install algorithm dependencies. CWD is the algorithm root folder
+      Defaults to language specific defaults.
+      e.g. For python: pip install -r requirements.txt
+  baseImage:
+    type: string
+    description: Custom docker image to be used as base to the newly built algorithm image
+  minHotWorkers:
+    type: integer
+    description: how many live algorithm instances will always run
+    minimum: 0
+    default: 0
+  quotaGuarantee:
+    type: integer
+    description: The amount of algorithms required to be scheduled first in a case of cluster pressure
+    minimum: 0
+  algorithmEnv:
+    type: object
+    description: key value environment variables for algorithm
+  workerEnv:
+    type: object
+    description: key value environment variables for worker
+  nodeSelector:
+    type: object
+    description: key value labels for nodes constraint
+    additionalProperties:
+      type: string
+  type:
+    type: string
+    description: type of algorithm code resource
+    enum:
+      - Git
+      - Code
+      - Image
+    default: Image
+  downloadFileExt:
+    type: string
+    description: the extension name that will be attached to a file when downloading algorithm result
+required:
+  - name

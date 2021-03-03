@@ -1,0 +1,6 @@
+type: object
+properties:
+  setAsCurrent:
+    type: boolean
+    description: should set the newly created version as current
+    default: false
