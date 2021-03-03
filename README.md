@@ -6,6 +6,7 @@
 
 ## Features <!-- omit in toc -->
 
+new comment
 - **Distributed pipeline of algorithms**
 
   - Receives [DAG graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) as input and automatically parallelizes your algorithms over the cluster.
