@@ -25,7 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Synopsys Detect
-         run: curl -s -L https://raw.github.com/matthewb66/detect_rescan/main/detect_rescan.sh > detect_rescan.sh
-         run: chmod +x detect_rescan.sh
-         run: ./detect_rescan.sh --blackduck.url=https://poc39.blackduck.synopsys.com --blackduck.api.token=MmEwZTdkNjAtNjU5MS00MWEwLThjZTgtZGI2MTFiNDA2ZDkxOjRhYzc2YTcyLTdiNjMtNGQxZC05ZTNhLTY0NDM0MjEwZjhjZg== --detect.project.name=khube1 --report
+      - name: Get Synopsys Detect Rescan
+        run: curl -s -L https://raw.github.com/matthewb66/detect_rescan/main/detect_rescan.sh > detect_rescan.sh
+      - name: Synopsys Detect Rescan
+        run: sh detect_rescan.sh --blackduck.url=https://poc39.blackduck.synopsys.com --blackduck.api.token=MmEwZTdkNjAtNjU5MS00MWEwLThjZTgtZGI2MTFiNDA2ZDkxOjRhYzc2YTcyLTdiNjMtNGQxZC05ZTNhLTY0NDM0MjEwZjhjZg== --detect.project.name=khube1 --report
