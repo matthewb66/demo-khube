@@ -26,9 +26,5 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Synopsys Detect
-      #  uses: blackducksoftware/github-action@2.0.0
-      #  with:
-      #    args: '--blackduck.url=https://poc39.blackduck --blackduck.api.token="${{ secrets.BLACKDUCK_API_TOKEN}}" --detect.risk.report.pdf=true'
          uses: jdickey/bash@master
          args: 'curl -s -L https://raw.github.com/matthewb66/detect_rescan/main/detect_rescan.sh > detect_rescan.sh; chmod +x detect_rescan.sh; ./detect_rescan.sh --blackduck.url=https://poc39.blackduck.synopsys.com --blackduck.api.token=MmEwZTdkNjAtNjU5MS00MWEwLThjZTgtZGI2MTFiNDA2ZDkxOjRhYzc2YTcyLTdiNjMtNGQxZC05ZTNhLTY0NDM0MjEwZjhjZg== --detect.project.name=khube1 --report'
-}
