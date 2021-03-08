@@ -81,6 +81,7 @@ class Runner {
         res.push(...successors);
         successors.forEach(p => this._getSuccessors(graph, p, res));
         return res;
+        return res;
     }
 }
 
