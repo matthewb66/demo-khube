@@ -40,6 +40,7 @@ class Runner {
             }
         });
         return { ...pipeline, nodes };
+        return { ...pipeline, nodes };
     }
 
     _flatten(nodes, nodeName) {
