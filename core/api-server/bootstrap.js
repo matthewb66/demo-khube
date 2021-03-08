@@ -46,6 +46,7 @@ class Bootstrap {
             this._onInitFailed(error);
         }
         return config;
+        return config;
     }
 
     _onInitFailed(error) {
